@@ -1,10 +1,14 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
 
 /* Middleware */
 // Static files
 app.use(express.static('public'));
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Routes
 /* 
@@ -14,7 +18,36 @@ Routes can be:
 .put
 .delete
 */
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', (req, res) => res.send({ code: 200, message: 'Welcome home!' }))
+
+app.route('/user').get(function (req, res) {
+    const response = {
+        code: 200,
+        message: 'Showing user'
+    }
+    res.send(response)
+}).post(function (req, res) {
+    const response = {
+        code: 200,
+        message: 'Creating user'
+    }
+    res.send(response)
+}).delete(function (req, res) {
+    const response = {
+        code: 200,
+        message: 'Deleting user'
+    }
+    res.send(response)
+})
+
+app.use(function (req, res, next) {
+    // 404 route
+    const respuesta = {
+        codigo: 404,
+        mensaje: 'The page you are trying to enter does not exist!'
+    };
+    res.status(404).send(respuesta)
+})
 
 // Server
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
