@@ -48,7 +48,11 @@ app.route('/user/:userId').get(function (req, res) {
     console.log(req.params);
     if (req.params.userId === '1') {
         response.code = 200;
-	    response.message = `Returning user ${req.params.userId}`;
+        response.message = `Returning user ${req.params.userId}`;
+        response.content = {
+            username: 'Mathias',
+            email: 'mathias@email.com',
+        }
     }
     res.send(response);
 });
