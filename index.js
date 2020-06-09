@@ -38,7 +38,16 @@ app.route('/user').get(function (req, res) {
         message: 'Deleting user'
     }
     res.send(response)
-})
+});
+
+app.route('/user/:userId').get(function (req, res) {
+    console.log(req);
+    const response = {
+        code: 200,
+        message: 'Returning user'
+    }
+    res.send(response);
+});
 
 app.use(function (req, res, next) {
     // 404 route
