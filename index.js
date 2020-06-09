@@ -41,10 +41,14 @@ app.route('/user').get(function (req, res) {
 });
 
 app.route('/user/:userId').get(function (req, res) {
-    console.log(req);
-    const response = {
-        code: 200,
-        message: 'Returning user'
+    let response = {
+	    code: 400,
+	    message: 'The user does not exist',
+    }
+    console.log(req.params);
+    if (req.params.userId === '1') {
+        response.code = 200;
+	    response.message = `Returning user ${req.params.userId}`;
     }
     res.send(response);
 });
